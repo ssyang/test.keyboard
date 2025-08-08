@@ -1,4 +1,20 @@
 const keyboardLayout = [
+    // Function keys
+    [
+        { name: 'Esc', keycode: '0x29' },
+        { name: 'F1', keycode: '0x3A' },
+        { name: 'F2', keycode: '0x3B' },
+        { name: 'F3', keycode: '0x3C' },
+        { name: 'F4', keycode: '0x3D' },
+        { name: 'F5', keycode: '0x3E' },
+        { name: 'F6', keycode: '0x3F' },
+        { name: 'F7', keycode: '0x40' },
+        { name: 'F8', keycode: '0x41' },
+        { name: 'F9', keycode: '0x42' },
+        { name: 'F10', keycode: '0x43' },
+        { name: 'F11', keycode: '0x44' },
+        { name: 'F12', keycode: '0x45' },
+    ],
     // Row 1
     [
         { name: '`', keycode: '0x35' },
@@ -67,7 +83,7 @@ const keyboardLayout = [
     // Row 5
     [
         { name: 'Ctrl', keycode: '0xE0', class: 'key-medium' },
-        { name: 'Win', keycode: '0xE3' },
+        //{ name: 'Win', keycode: '0xE3' },
         { name: 'Alt', keycode: '0xE2' },
         { name: 'Space', keycode: '0x2C', class: 'key-space' },
         { name: 'Alt', keycode: '0xE6' },
@@ -79,15 +95,22 @@ const keyboardContainer = document.getElementById('keyboard-container');
 const keycodeDisplay = document.getElementById('keycode-display');
 
 function generateKeyboard() {
+    keyboardContainer.innerHTML = ''; // Clear existing keyboard
     keyboardLayout.forEach(row => {
         const rowElement = document.createElement('div');
         rowElement.classList.add('keyboard-row');
         row.forEach(key => {
             const keyElement = document.createElement('div');
             keyElement.classList.add('key');
-            if (key.class) {
-                keyElement.classList.add(key.class);
+            // Add classes for special keys to be targeted by CSS flex-grow
+            if (key.name === 'Backspace' || key.name === 'Caps Lock' || key.name === 'Enter' || key.name === 'Shift') {
+                keyElement.classList.add('key-large');
+            } else if (key.name === 'Tab' || key.name === 'Ctrl' || key.name === 'Alt') {
+                keyElement.classList.add('key-medium');
+            } else if (key.name === 'Space') {
+                keyElement.classList.add('key-space');
             }
+
             keyElement.textContent = key.name;
             keyElement.dataset.keycode = key.keycode;
             rowElement.appendChild(keyElement);
