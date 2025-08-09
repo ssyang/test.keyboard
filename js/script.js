@@ -83,7 +83,6 @@ const keyboardLayout = [
     // Row 5
     [
         { name: 'Ctrl', keycode: '0xE0', class: 'key-medium' },
-        //{ name: 'Win', keycode: '0xE3' },
         { name: 'Alt', keycode: '0xE2' },
         { name: 'Space', keycode: '0x2C', class: 'key-space' },
         { name: 'Alt', keycode: '0xE6' },
@@ -103,12 +102,16 @@ function generateKeyboard() {
             const keyElement = document.createElement('div');
             keyElement.classList.add('key');
             // Add classes for special keys to be targeted by CSS flex-grow
-            if (key.name === 'Backspace' || key.name === 'Caps Lock' || key.name === 'Enter' || key.name === 'Shift') {
+            if (key.name === 'Backspace' || key.name === 'Enter' || key.name === 'Shift') {
                 keyElement.classList.add('key-large');
             } else if (key.name === 'Tab' || key.name === 'Ctrl' || key.name === 'Alt') {
                 keyElement.classList.add('key-medium');
             } else if (key.name === 'Space') {
                 keyElement.classList.add('key-space');
+            }
+            else if (key.name === 'Caps Lock') {
+                keyElement.classList.add('key-large');
+                keyElement.classList.add('key-disabled');
             }
 
             keyElement.textContent = key.name;
