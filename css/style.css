@@ -67,7 +67,8 @@ body {
     background-color: #e0e0e0;
 }
 
-.key:active {
+.key:active,
+.key-active {
     background-color: #d0d0d0;
     transform: translateY(0.2vw);
     box-shadow: none;
